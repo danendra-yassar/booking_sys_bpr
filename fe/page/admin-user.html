@@ -1,0 +1,87 @@
+<div class="content-header">
+    <h4>Kelola User</h4>
+    <p>Menambahkan dan menghapus user.</p>
+</div>
+
+<div class="dashboard-card">
+
+    <h5>Tambah User</h5>
+    <hr>
+    
+    <form id="userForm">
+
+        <div class="mb-3">
+            <label class="form-label">
+                Role
+            </label>
+
+            <input
+                type="text"
+                id="role"
+                class="form-control"
+                value="user"
+                disabled>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">
+                Username
+            </label>
+
+            <input
+                type="text"
+                id="username"
+                class="form-control"
+                required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                class="form-control"
+                required>
+        </div>
+
+        <button
+            type="submit"
+            class="btn btn-primary">
+            Tambah User
+        </button>
+
+    </form>
+
+</div>
+
+<div class="mt-4">
+    <h5>Daftar User</h5>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th>Dibuat Pada</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+
+            <tbody id="userList">
+                <tr>
+                    <td colspan="3">
+                        Memuat data...
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- <div id="userList">
+        Memuat data...
+    </div> -->
+</div>

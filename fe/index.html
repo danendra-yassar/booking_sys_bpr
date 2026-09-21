@@ -7,21 +7,14 @@
 
     <title>Dashboard | Booking Room</title>
 
-    <!-- Bootstrap -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
-
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-    <!-- ========================================== -->
-    <!-- HEADER -->
-    <!-- ========================================== -->
-
     <header class="top-header">
-
+        
         <div class="brand">
             Booking Room
         </div>
@@ -30,7 +23,6 @@
             <span id="usernameDisplay">
                 Loading...
             </span>
-
             <span
                 class="user-role"
                 id="roleDisplay">
@@ -39,174 +31,116 @@
 
     </header>
 
-
-    <!-- ========================================== -->
-    <!-- MAIN LAYOUT -->
-    <!-- ========================================== -->
-
     <div class="main-container">
-
-
-        <!-- ====================================== -->
-        <!-- SIDEBAR -->
-        <!-- ====================================== -->
-
+        
         <aside class="sidebar">
-
-            <!-- MENU -->
+            
             <div class="menu-title">
                 Menu
             </div>
 
+            <hr>
+            
             <ul class="nav-menu">
-
                 <li>
                     <button
                         type="button"
                         class="menu-button active"
                         data-page="dashboard">
-
                         Dashboard
-
                     </button>
                 </li>
-
 
                 <li>
                     <button
                         type="button"
                         class="menu-button"
                         data-page="schedule">
-
                         Jadwal Ruangan
-
                     </button>
                 </li>
-
 
                 <li>
                     <button
                         type="button"
                         class="menu-button"
                         data-page="booking">
-
                         Booking Ruangan
-
                     </button>
                 </li>
-
             </ul>
 
-
-            <!-- ================================== -->
-            <!-- ADMIN MENU -->
-            <!-- ================================== -->
-
-            <div
-                id="adminMenu"
-                style="display: none;">
-
+            <div id="adminMenu" style="display: none;">
                 <div class="menu-title">
                     Administrator
                 </div>
 
+                <hr>
+                
                 <ul class="nav-menu">
-
                     <li>
                         <button
                             type="button"
                             class="menu-button"
                             data-page="admin-room">
-
                             Kelola Ruangan
-
                         </button>
                     </li>
-
 
                     <li>
                         <button
                             type="button"
                             class="menu-button"
                             data-page="admin-booking">
-
                             Kelola Booking
-
                         </button>
                     </li>
 
+                    <li>
+                        <button
+                            type="button"
+                            class="menu-button"
+                            data-page="admin-user">
+                            Kelola User
+                        </button>
+                    </li>
                 </ul>
-
             </div>
-
-
-            <!-- ================================== -->
-            <!-- ACCOUNT MENU -->
-            <!-- ================================== -->
 
             <div class="menu-title">
                 Account
             </div>
 
-            <ul class="nav-menu">
+            <hr>
 
+            <ul class="nav-menu">
                 <li>
                     <button
                         type="button"
                         id="logoutButton"
                         class="logout-button">
-
                         Logout
-
                     </button>
                 </li>
-
             </ul>
-
         </aside>
 
-
-        <!-- ====================================== -->
-        <!-- CONTENT -->
-        <!-- ====================================== -->
-
         <main class="content">
-
             <div id="contentArea">
                 Memuat halaman...
             </div>
-
         </main>
-
     </div>
 
 
-    <!-- ========================================== -->
-    <!-- JAVASCRIPT -->
-    <!-- ========================================== -->
-
-    <!-- Bootstrap -->
     <script src="js/bootstrap.bundle.min.js"></script>
 
-
-    <!-- Application JavaScript -->
-
-    <!-- Authentication / Logout -->
     <script src="js/auth.js"></script>
-
-    <!-- Schedule -->
     <script src="js/schedule.js"></script>
-
-    <!-- Booking -->
     <script src="js/booking.js"></script>
-
-    <!-- Admin Room -->
     <script src="js/admin-room.js"></script>
-
-    <!-- Admin Booking -->
     <script src="js/admin-booking.js"></script>
-
-    <!-- Main Application -->
+    <script src="js/admin-user.js"></script>
     <script src="js/app.js"></script>
 
 </body>

@@ -273,7 +273,7 @@ app.get('/api/auth/me', requireAuth, (req, res) => {
 });
 
 //create user
-app.post('/api/users', requireAdmin, async (req, res) => {
+app.post('/api/users/create', requireAdmin, async (req, res) => {
     try {
         const { username, password, role } = req.body;
 
@@ -359,6 +359,83 @@ app.post('/api/users', requireAdmin, async (req, res) => {
     }
 });
 
+//delete user - only admin
+app.delete('/api/users/delete/:id', requireAdmin, async (req, res) => {
+    try {
+        const idUser = Number(req.params.id);
+
+        if (!Number.isInteger(idUser)) {
+            return res.status(400).json({
+                success: false,
+                message: 'ID user tidak valid.'
+            });
+        }
+
+        const [userRows] = await db.execute(
+            `
+            SELECT id_user
+            FROM user_login
+            WHERE id_user = ?
+            LIMIT 1
+            `,
+            [idUser]
+        );
+
+        if (userRows.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: 'User tidak ditemukan.'
+            });
+        }
+
+        const [result] = await db.execute(
+            `
+            DELETE FROM user_login
+            WHERE id_user = ?
+            `,
+            [idUser]
+        );
+
+        return res.json({
+            success: true,
+            message: 'User berhasil dihapus.',
+            affectedRows: result.affectedRows
+        });
+
+    } catch (error) {
+        console.error('DELETE USER ERROR:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Gagal menghapus user.'
+        });
+    }
+});
+
+//user list - only admin
+app.get('/api/users', requireAdmin, async (req, res) => {
+    try {
+        const [rows] = await db.execute(`
+            SELECT
+                id_user,
+                username,
+                role,
+                create_at
+            FROM user_login
+            ORDER BY id_user ASC
+        `);
+
+        return res.json({
+            success: true,
+            data: rows
+        });
+    } catch (error) {
+        console.error('GET USERS ERROR:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Gagal mengambil data user.'
+        });
+    }
+});
 
 //logout
 app.post('/api/auth/logout', requireAuth, (req, res) => {
@@ -489,7 +566,7 @@ app.delete('/api/rooms/delete/:id', requireAdmin, async (req, res) => {
             });
         }
 
-        // Jangan menghapus room jika sudah mempunyai histori booking
+        // Jangan hapus room jika sudah mempunyai histori booking
         const [bookingRows] = await db.execute(
             `
             SELECT COUNT(*) AS total
@@ -870,7 +947,7 @@ app.put('/api/bookings/meeting/update/:id', requireAdmin, async (req, res) => {
             });
         }
 
-        // Check conflict except current booking
+        // Check konflik jadwal room, excluding current booking
         const conflict = await checkRoomConflict(
             idRoom,
             tanggal_booking,

@@ -5,7 +5,8 @@ const pageMap = {
     schedule: '/page/booking-schedule.html',
     booking: '/page/booking-history.html',
     'admin-room': '/page/admin-room.html',
-    'admin-booking': '/page/admin-booking.html'
+    'admin-booking': '/page/admin-booking.html',
+    'admin-user': '/page/admin-user.html',
 };
 
 const contentArea = document.getElementById('contentArea');
@@ -52,7 +53,7 @@ async function loadPage(page) {
 
     // Cegah user biasa membuka halaman admin
     if (
-        (page === 'admin-room' || page === 'admin-booking') &&
+        (page === 'admin-room' || page === 'admin-booking' || page === 'admin-user') &&
         currentUser.role !== 'admin'
     ) {
         alert('Anda tidak memiliki akses ke halaman ini.');
@@ -121,6 +122,10 @@ function initializePage(page) {
 
         case 'admin-booking':
             initializeAdminBooking();
+            break;
+
+        case 'admin-user':
+            initializeListUsers();
             break;
     }
 }

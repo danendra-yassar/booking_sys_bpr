@@ -150,3 +150,73 @@ body {
             padding: 0 15px;
         }
     }
+
+    input[type="date"],input[type="time"] {
+        cursor: pointer;
+    }
+
+    /* Layout Kalender Grid Bootstrap */
+    .calendar-grid-header,
+    .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 6px;
+    }
+
+    .calendar-day-header {
+        text-align: center;
+        font-weight: 600;
+        font-size: 0.85rem;
+        color: #495057;
+        padding-bottom: 6px;
+    }
+
+    .calendar-day-cell {
+        min-height: 95px;
+        background-color: #ffffff;
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+        padding: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .calendar-day-cell:hover {
+        background-color: #f1f3f5;
+        border-color: #ced4da;
+    }
+
+    .calendar-day-cell.other-month {
+        background-color: #f8f9fa;
+        opacity: 0.4;
+    }
+
+    .calendar-day-cell.is-today {
+        border: 2px solid #0d6efd;
+        background-color: #e7f1ff;
+    }
+
+    .calendar-day-cell.is-selected {
+        border: 2px solid #198754;
+        background-color: #d1e7dd;
+    }
+
+    .date-number {
+        font-size: 0.85rem;
+        font-weight: bold;
+        margin-bottom: 4px;
+    }
+
+    /* Badge Event di Dalam Kotak Tanggal */
+    .event-badge {
+        font-size: 0.7rem;
+        padding: 2px 4px;
+        margin-top: 2px;
+        border-radius: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+    }
