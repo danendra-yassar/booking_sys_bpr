@@ -1,0 +1,52 @@
+<div class="content-header">
+    <h4>Kelola Ruangan</h4>
+    <p>Menambahkan dan menghapus ruangan meeting.</p>
+</div>
+
+<div class="dashboard-card">
+
+    <h5>Tambah Ruangan</h5>
+    <hr>
+    
+    <form id="roomForm">
+
+        <div class="mb-3">
+            <label class="form-label">
+                Nama Ruangan
+            </label>
+
+            <input
+                type="text"
+                id="namaRuang"
+                class="form-control"
+                required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">
+                Deskripsi
+            </label>
+
+            <textarea
+                id="deskripsiRuang"
+                class="form-control"
+                rows="3"></textarea>
+        </div>
+
+        <button
+            type="submit"
+            class="btn btn-primary">
+            Tambah Ruangan
+        </button>
+
+    </form>
+
+</div>
+
+<div class="mt-4">
+    <h5>Daftar Ruangan</h5>
+
+    <div id="roomList">
+        Memuat data...
+    </div>
+</div>

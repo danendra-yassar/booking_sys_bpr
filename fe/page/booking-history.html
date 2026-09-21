@@ -1,0 +1,94 @@
+<div class="content-header">
+    <h4>Booking Ruangan</h4>
+
+    <p>
+        Buat booking ruangan baru.
+    </p>
+
+</div>
+
+<div class="dashboard-card">
+
+
+    <form id="bookingForm">
+
+        <div class="mb-3">
+            <label for="room" class="form-label">
+                Ruangan
+            </label>
+
+            <select
+                id="room"
+                class="form-select"
+                required>
+
+                <option value="">
+                    Pilih ruangan
+                </option>
+
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="bookingName" class="form-label">
+                Nama Booking
+            </label>
+
+            <input
+                type="text"
+                id="bookingName"
+                class="form-control"
+                required>
+        </div>
+
+        <div class="mb-3">
+            <label for="bookingDate" class="form-label">
+                Tanggal
+            </label>
+
+            <input
+                type="date"
+                id="bookingDate" 
+                class="form-control"
+                required>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-6 mb-3">
+                <label
+                    for="startTime"
+                    class="form-label">
+                    Waktu Mulai
+                </label>
+
+                <input
+                    type="time"
+                    id="startTime"
+                    class="form-control"
+                    required>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label
+                    for="endTime"
+                    class="form-label">
+                    Waktu Selesai
+                </label>
+
+                <input
+                    type="time"
+                    id="endTime"
+                    class="form-control"
+                    required>
+            </div>
+
+        </div>
+
+        <button
+            type="submit" class="btn btn-primary">
+            Simpan Booking
+        </button>
+    </form>
+
+</div>

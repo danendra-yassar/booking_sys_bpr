@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Booking Room</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f4f6f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+        }
+
+        .login-card {
+            background-color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .login-title {
+            text-align: center;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #212529;
+        }
+
+        .login-subtitle {
+            text-align: center;
+            color: #6c757d;
+            margin-bottom: 28px;
+            font-size: 14px;
+        }
+
+        .form-label {
+            font-weight: 500;
+        }
+
+        .form-control {
+            padding: 10px 12px;
+            border-radius: 7px;
+        }
+
+        .form-control:focus {
+            box-shadow: none;
+            border-color: #0d6efd;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 10px;
+            border-radius: 7px;
+            font-weight: 500;
+        }
+
+        #loginMessage {
+            display: none;
+            margin-bottom: 20px;
+        }
+
+        .footer-text {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <h3 class="login-title">Login</h3>
+            
+            <p class="login-subtitle">
+                Silakan login untuk melanjutkan
+            </p>
+            
+            <!-- Pesan login -->
+            <div id="loginMessage" class="alert" role="alert"></div>
+            
+            <!-- Login Form -->
+            <form id="loginForm">
+                <div class="mb-3">
+                    <label for="username" class="form-label">
+                        Username
+                    </label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="username"
+                        name="username"
+                        placeholder="Masukkan username"
+                        autocomplete="username"
+                        required
+                    >
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">
+                        Password
+                    </label>
+                    <input
+                        type="password"
+                        class="form-control"
+                        id="password"
+                        name="password"
+                        placeholder="Masukkan password"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+                <button
+                    type="submit"
+                    id="loginButton"
+                    class="btn btn-primary btn-login"
+                >
+                    Login
+                </button>
+
+            </form>
+
+            <div class="footer-text">
+                Meeting Room Booking System
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="../js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const loginButton = document.getElementById('loginButton');
+        const loginMessage = document.getElementById('loginMessage');
+
+        loginForm.addEventListener('submit', async function (event) {
+
+            // Mencegah form melakukan reload
+            event.preventDefault();
+
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+
+            // Reset pesan
+            loginMessage.style.display = 'none';
+            loginMessage.className = 'alert';
+
+            // Loading
+            loginButton.disabled = true;
+            loginButton.textContent = 'Memproses...';
+
+            try {
+
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        password: password
+                    })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok || !data.success) {
+                    loginMessage.classList.add('alert-danger');
+                    loginMessage.textContent = data.message || 'Login gagal.';
+                    loginMessage.style.display = 'block';
+
+                    return;
+                }
+
+                // if Login berhasil
+                loginMessage.classList.add('alert-success');
+                loginMessage.textContent = 'Login berhasil.';
+                loginMessage.style.display = 'block';
+
+                // Redirect index
+                setTimeout(() => {
+                    window.location.href = data.redirect || '/index.html';
+                }, 500);
+
+            } catch (error) {
+                console.error('LOGIN ERROR:', error);
+                loginMessage.classList.add('alert-danger');
+                loginMessage.textContent = 'Tidak dapat terhubung ke server.';
+                loginMessage.style.display = 'block';
+            } finally {
+                loginButton.disabled = false;
+                loginButton.textContent = 'Login';
+            }
+        });
+    </script>
+</body>
+
+</html>

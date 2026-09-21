@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+ 
+<title>Dashboard | Booking Room</title>
+
+<!-- Bootstrap -->
+<link rel="stylesheet" href="css/bootstrap.min.css">
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f5f6f8;
+    }
+
+    /* Header */
+    .top-header {
+        height: 60px;
+        background-color: #ffffff;
+        border-bottom: 1px solid #dee2e6;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 24px;
+    }
+
+    .brand {
+        font-size: 19px;
+        font-weight: 600;
+        color: #212529;
+    }
+
+    .user-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 14px;
+    }
+
+    .user-role {
+        color: #6c757d;
+    }
+
+    /* Layout */
+    .main-container {
+        display: flex;
+        min-height: calc(100vh - 60px);
+    }
+
+    /* Sidebar */
+    .sidebar {
+        width: 220px;
+        background-color: #ffffff;
+        border-right: 1px solid #dee2e6;
+        padding: 15px 10px;
+    }
+
+    .menu-title {
+        font-size: 12px;
+        color: #8a8f98;
+        margin: 10px 12px 8px;
+        text-transform: uppercase;
+    }
+
+    .nav-menu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .nav-menu li {
+        margin-bottom: 3px;
+    }
+
+    .nav-menu button {
+        width: 100%;
+        border: none;
+        background: transparent;
+        text-align: left;
+        padding: 10px 12px;
+        border-radius: 6px;
+        color: #495057;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .nav-menu button:hover {
+        background-color: #f1f3f5;
+    }
+
+    .nav-menu button.active {
+        background-color: #e9f2ff;
+        color: #0d6efd;
+    }
+
+    .logout-button {
+        color: #dc3545 !important;
+    }
+
+    .logout-button:hover {
+        background-color: #fff0f1 !important;
+    }
+
+    /* Content */
+    .content {
+        flex: 1;
+        padding: 25px;
+        overflow-y: auto;
+    }
+
+    .content-header {
+        margin-bottom: 20px;
+    }
+
+    .content-header h4 {
+        margin: 0;
+        font-size: 21px;
+        font-weight: 600;
+    }
+
+    .content-header p {
+        margin: 5px 0 0;
+        color: #6c757d;
+        font-size: 14px;
+    }
+
+    /* Dashboard cards */
+    .dashboard-card {
+        background-color: #ffffff;
+        border: 1px solid #e1e4e8;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 15px;
+    }
+
+    .dashboard-card h5 {
+        margin-bottom: 8px;
+        font-size: 16px;
+    }
+
+    .dashboard-card p {
+        margin: 0;
+        color: #6c757d;
+        font-size: 14px;
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+
+        .sidebar {
+            width: 180px;
+        }
+
+        .content {
+            padding: 18px;
+        }
+
+        .top-header {
+            padding: 0 15px;
+        }
+    }
+</style>
+ 
+
+</head>
+
+<body>
+
+ 
+<!-- ============================= -->
+<!-- HEADER -->
+<!-- ============================= -->
+
+<header class="top-header">
+
+    <div class="brand">
+        Booking Room
+    </div>
+
+    <div class="user-info">
+        <span id="usernameDisplay">Loading...</span>
+        <span class="user-role" id="roleDisplay"></span>
+    </div>
+
+</header>
+
+
+<!-- ============================= -->
+<!-- MAIN LAYOUT -->
+<!-- ============================= -->
+
+<div class="main-container">
+
+    <!-- ============================= -->
+    <!-- SIDEBAR -->
+    <!-- ============================= -->
+
+    <aside class="sidebar">
+
+        <div class="menu-title">
+            Menu
+        </div>
+
+        <ul class="nav-menu">
+
+            <li>
+                <button
+                    class="menu-button active"
+                    data-page="dashboard">
+                    Dashboard
+                </button>
+            </li>
+
+            <li>
+                <button
+                    class="menu-button"
+                    data-page="schedule">
+                    Jadwal Ruangan
+                </button>
+            </li>
+
+            <li>
+                <button
+                    class="menu-button"
+                    data-page="booking">
+                    Booking Ruangan
+                </button>
+            </li>
+
+        </ul>
+
+
+        <div id="adminMenu" style="display: none;">
+
+            <div class="menu-title">
+                Administrator
+            </div>
+
+            <ul class="nav-menu">
+
+                <li>
+                    <button
+                        class="menu-button"
+                        data-page="admin-room">
+                        Kelola Ruangan
+                    </button>
+                </li>
+
+                <li>
+                    <button
+                        class="menu-button"
+                        data-page="admin-booking">
+                        Kelola Booking
+                    </button>
+                </li>
+
+            </ul>
+
+        </div>
+
+        <!-- ADMIN MENU -->
+
+        <div id="adminMenu" style="display: none;">
+
+            <div class="menu-title">
+                Administrator
+            </div>
+
+            <ul class="nav-menu">
+
+                <li>
+                    <button
+                        class="menu-button"
+                        data-page="rooms">
+                        Kelola Ruangan
+                    </button>
+                </li>
+
+                <li>
+                    <button
+                        class="menu-button"
+                        data-page="bookings">
+                        Kelola Booking
+                    </button>
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <!-- ACCOUNT MENU -->
+
+        <div class="menu-title">
+            Account
+        </div>
+
+        <ul class="nav-menu">
+
+            <li>
+                <button
+                    id="logoutButton"
+                    class="logout-button">
+                    Logout
+                </button>
+            </li>
+
+        </ul>
+
+    </aside>
+
+
+    <!-- ============================= -->
+    <!-- CONTENT -->
+    <!-- ============================= -->
+
+    <main class="content">
+        <div id="contentArea">
+            Memuat halaman...
+        </div>
+    </main>
+
+</div>
+
+
+<!-- Bootstrap JS -->
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/booking.js"></script>
+<script src="js/schedule.js"></script>
+<script src="js/admin-room.js"></script>
+
+
+<script>
+
+    // ==========================================
+    // USER SESSION
+    // ==========================================
+
+    let currentUser = null;
+
+
+    // ==========================================
+    // CEK SESSION
+    // ==========================================
+
+
+    // async function checkLogin() {
+
+    //     try {
+
+    //         const response = await fetch('/api/auth/me');
+
+    //         const data = await response.json();
+
+    //         if (!response.ok || !data.success) {
+
+    //             // Belum login
+    //             window.location.href = '/page/login.html';
+
+    //             return;
+    //         }
+
+    //         currentUser = data.user;
+
+    //         // Tampilkan username
+    //         document.getElementById('usernameDisplay').textContent =
+    //             currentUser.username;
+
+    //         // Tampilkan role
+    //         document.getElementById('roleDisplay').textContent =
+    //             '(' + currentUser.role + ')';
+
+
+    //         // ==================================
+    //         // MENU ADMIN
+    //         // ==================================
+
+    //         if (currentUser.role === 'admin') {
+
+    //             document.getElementById('adminMenu').style.display =
+    //                 'block';
+
+    //         }
+
+    //     } catch (error) {
+
+    //         console.error('SESSION ERROR:', error);
+
+    //         window.location.href = '/page/login.html';
+
+    //     }
+    // }
+
+    async function checkLogin() {
+
+        try {
+
+            const response = await fetch('/api/auth/me');
+
+            const data = await response.json();
+
+            if (!response.ok || !data.success) {
+
+                window.location.href =
+                    '/page/login.html';
+
+                return;
+            }
+
+            currentUser = data.user;
+
+            document.getElementById('usernameDisplay')
+                .textContent = currentUser.username;
+
+            document.getElementById('roleDisplay')
+                .textContent = '(' + currentUser.role + ')';
+
+
+            if (currentUser.role === 'admin') {
+
+                document.getElementById('adminMenu')
+                    .style.display = 'block';
+
+            }
+
+
+            // Load dashboard pertama kali
+            loadPage('dashboard');
+
+
+        } catch (error) {
+
+            console.error('SESSION ERROR:', error);
+
+            window.location.href =
+                '/page/login.html';
+
+        }
+    }
+
+
+    // ==========================================
+    // CONTENT
+    // ==========================================
+
+    const contentArea = document.getElementById('contentArea');
+
+    const pageMap = {
+        dashboard: '/page/dashboard.html',
+        schedule: '/page/schedule.html',
+        booking: '/page/booking.html',
+        'admin-room': '/page/admin-room.html',
+        'admin-booking': '/page/admin-booking.html'
+    };
+
+    async function loadPage(page) {
+
+        const pageUrl = pageMap[page];
+
+        if (!pageUrl) {
+            console.error('Halaman tidak ditemukan:', page);
+            return;
+        }
+
+        // Cek hak akses halaman admin
+        if (
+            (page === 'admin-room' ||
+            page === 'admin-booking') &&
+            currentUser.role !== 'admin'
+        ) {
+            alert('Anda tidak memiliki akses ke halaman ini.');
+            return;
+        }
+
+        try {
+
+            contentArea.innerHTML = `
+                <p class="text-muted">
+                    Memuat halaman...
+                </p>
+            `;
+
+            const response = await fetch(pageUrl);
+
+            if (!response.ok) {
+                throw new Error(
+                    `Gagal memuat halaman (${response.status})`
+                );
+            }
+
+            const html = await response.text();
+
+            contentArea.innerHTML = html;
+
+            // Active menu
+            document
+                .querySelectorAll('.menu-button')
+                .forEach(button => {
+                    button.classList.remove('active');
+                });
+
+            const selectedButton = document.querySelector(
+                `.menu-button[data-page="${page}"]`
+            );
+
+            if (selectedButton) {
+                selectedButton.classList.add('active');
+            }
+
+            // Jalankan JavaScript khusus halaman
+            initializePage(page);
+
+        } catch (error) {
+
+            console.error('LOAD PAGE ERROR:', error);
+
+            contentArea.innerHTML = `
+                <div class="alert alert-danger">
+                    Gagal memuat halaman.
+                </div>
+            `;
+        }
+    }
+
+    function initializePage(page) {
+
+        if (page === 'dashboard') {
+            initializeDashboard();
+        }
+
+        if (page === 'booking-schedule') {
+            initializeSchedule();
+        }
+
+        if (page === 'booking-history') {
+            initializeBooking();
+        }
+
+        if (page === 'admin-room') {
+            initializeAdminRoom();
+        }
+
+        if (page === 'admin-booking') {
+            initializeAdminBooking();
+        }
+    }
+
+    function initializeDashboard() {
+        console.log('Dashboard loaded');
+    }
+
+    function initializeSchedule() {
+        console.log('Schedule loaded');
+    }
+
+    function initializeBooking() {
+        console.log('Booking page loaded');
+    }
+
+    function initializeAdminRoom() {
+        console.log('Admin room loaded');
+    }
+
+    function initializeAdminBooking() {
+        console.log('Admin booking loaded');
+    }
+
+    
+    // ==========================================
+    // EVENT MENU
+    // ==========================================
+
+    document.querySelectorAll('.menu-button').forEach(button => {
+        button.addEventListener('click', function () {
+            const page = this.dataset.page;
+            loadPage(page);
+        });
+    });
+
+
+    // ==========================================
+    // LOGOUT
+    // ==========================================
+
+    document.getElementById('logoutButton')
+        .addEventListener('click', async function () {
+
+            try {
+
+                const response = await fetch(
+                    '/api/auth/logout',
+                    {
+                        method: 'POST'
+                    }
+                );
+
+                const data = await response.json();
+
+                if (data.success) {
+
+                    window.location.href =
+                        '/page/login.html';
+
+                } else {
+
+                    alert(
+                        data.message ||
+                        'Logout gagal.'
+                    );
+
+                }
+
+            } catch (error) {
+
+                console.error(
+                    'LOGOUT ERROR:',
+                    error
+                );
+
+                alert(
+                    'Tidak dapat terhubung ke server.'
+                );
+
+            }
+
+        });
+
+
+    // ==========================================
+    // INITIALIZE
+    // ==========================================
+
+    checkLogin();
+
+</script>
+ 
+
+</body>
+
+</html>
